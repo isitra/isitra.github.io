@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Isita Karmakar & Rakesh Seal — Wedding & Memories</title>
+  <meta name="description" content="Wedding website for Isita Karmakar and Rakesh Seal. Share memories, wishes, and photos." />
+
+  <style>
+    :root{
+      --bg: #0b0b10;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.09);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.72);
+      --line: rgba(255,255,255,.14);
+      --accent: #ffd7a8;
+      --accent2:#f7a8ff;
+      --shadow: 0 20px 80px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1080px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 18% 10%, rgba(247,168,255,.16), transparent 55%),
+        radial-gradient(900px 600px at 78% 15%, rgba(255,215,168,.15), transparent 55%),
+        radial-gradient(800px 600px at 50% 100%, rgba(170,255,240,.10), transparent 60%),
+        linear-gradient(180deg, #07070b, #0b0b10 40%, #07070b);
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 70px;}
+    .nav{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(180deg, rgba(11,11,16,.85), rgba(11,11,16,.45));
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      max-width:var(--max); margin:0 auto;
+      padding:12px 18px; display:flex; gap:14px; align-items:center; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; min-width: 180px;
+      font-weight:650; letter-spacing:.2px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent2));
+      box-shadow: 0 0 20px rgba(255,215,168,.35);
+    }
+    .nav a{
+      text-decoration:none;
+      padding:9px 10px;
+      border-radius:12px;
+      color:var(--muted);
+      font-size:14px;
+      border:1px solid transparent;
+      transition:.2s ease;
+      white-space:nowrap;
+    }
+    .nav a:hover{color:var(--text); border-color:var(--line); background:rgba(255,255,255,.04)}
+    .nav-links{display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end}
+
+    .hero{padding:34px 0 12px; position:relative;}
+    .hero-card{
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-inner{
+      padding:28px 22px;
+      display:grid;
+      grid-template-columns: 1.4fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    @media (max-width:860px){
+      .hero-inner{grid-template-columns:1fr}
+      .brand{min-width:auto}
+    }
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      color:var(--muted);
+      font-size:14px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.03);
+      width: fit-content;
+    }
+    .kicker .spark{filter: drop-shadow(0 0 18px rgba(255,215,168,.3))}
+    h1{
+      margin:14px 0 10px;
+      font-size: clamp(34px, 4.4vw, 56px);
+      line-height:1.03;
+      letter-spacing:-.6px;
+    }
+    .subtitle{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.55;
+      max-width: 62ch;
+    }
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .pill{
+      font-size:13px;
+      color:var(--muted);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      padding:8px 10px;
+      border-radius:999px;
+    }
+    .cta-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+    .btn{
+      cursor:pointer;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 12px;
+      border-radius: 14px;
+      font-weight:600;
+      font-size:14px;
+      transition:.2s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09)}
+    .btn.primary{
+      border-color: rgba(255,215,168,.45);
+      background: linear-gradient(180deg, rgba(255,215,168,.22), rgba(255,255,255,.06));
+    }
+
+    .side{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding:14px;
+      display:flex; flex-direction:column; gap:12px;
+      min-height: 220px;
+    }
+    .frame{
+      border-radius: 16px;
+      border:1px dashed rgba(255,255,255,.22);
+      background: radial-gradient(circle at 30% 20%, rgba(255,215,168,.16), transparent 55%),
+                  radial-gradient(circle at 70% 70%, rgba(247,168,255,.12), transparent 55%),
+                  rgba(255,255,255,.03);
+      padding:16px;
+      min-height: 148px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:var(--muted);
+      line-height:1.4;
+      position:relative;
+      overflow:hidden;
+    }
+    .frame strong{color:var(--text)}
+    .mini{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    .mini .tile{
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      padding:12px;
+    }
+    .tile .label{color:var(--muted); font-size:12px}
+    .tile .value{margin-top:6px; font-weight:650}
+    .tile small{color:var(--muted)}
+    .section{padding:22px 0 0}
+    .card{
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 50px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .card .inner{padding:18px}
+    h2{margin:0; font-size:22px; letter-spacing:-.2px}
+    .muted{color:var(--muted)}
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width:860px){ .grid{grid-template-columns:1fr} }
+    .story{
+      border-top:1px solid var(--line);
+      padding-top:14px;
+      margin-top:14px;
+      display:grid;
+      gap:10px;
+      color:var(--muted);
+      line-height:1.65;
+    }
+    .timeline{
+      display:grid;
+      gap:10px;
+      margin-top:14px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+    .event{
+      display:flex; gap:12px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+    }
+    .badge{
+      flex:0 0 auto;
+      width:44px; height:44px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: radial-gradient(circle at 30% 30%, rgba(255,215,168,.22), rgba(255,255,255,.03));
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+    }
+    .event .title{font-weight:700}
+    .event .meta{color:var(--muted); font-size:13px; margin-top:2px}
+    .event .desc{color:var(--muted); font-size:14px; margin-top:6px; line-height:1.45}
+
+    .form{
+      margin-top:14px;
+      display:grid; gap:10px;
+      border-top:1px solid var(--line);
+      padding-top:14px;
+    }
+    label{font-size:13px; color:var(--muted)}
+    input, textarea{
+      width:100%;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      padding:10px 12px;
+      outline:none;
+      transition:.2s ease;
+      font-family:var(--font);
+      font-size:14px;
+    }
+    textarea{min-height:110px; resize:vertical}
+    input:focus, textarea:focus{border-color: rgba(255,215,168,.55); box-shadow: 0 0 0 3px rgba(255,215,168,.10)}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+    @media (max-width:620px){ .row{grid-template-columns:1fr} }
+
+    .memories-header{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      border-top:1px solid var(--line);
+      margin-top:14px; padding-top:14px;
+    }
+    .memories{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width:980px){ .memories{grid-template-columns: repeat(2, 1fr)} }
+    @media (max-width:620px){ .memories{grid-template-columns: 1fr} }
+
+    .mem{
+      border-radius: 18px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height: 190px;
+    }
+    .mem .pic{
+      aspect-ratio: 16/10;
+      background: rgba(255,255,255,.02);
+      border-bottom:1px solid var(--line);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--muted);
+      overflow:hidden;
+    }
+    .mem .pic img{width:100%; height:100%; object-fit:cover; display:block}
+    .mem .body{padding:12px}
+    .mem .who{font-weight:750}
+    .mem .when{color:var(--muted); font-size:12px; margin-top:2px}
+    .mem .text{color:var(--muted); margin-top:8px; line-height:1.5; white-space:pre-wrap}
+    .mem .tags{margin-top:10px; display:flex; gap:6px; flex-wrap:wrap}
+    .chip{
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 8px;
+      background: rgba(255,255,255,.03);
+    }
+
+    footer{
+      margin-top:26px;
+      color:var(--muted);
+      text-align:center;
+      padding:18px 0 30px;
+      border-top:1px solid var(--line);
+    }
+    .toast{
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.72);
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius: 14px;
+      color: var(--text);
+      font-size: 13px;
+      box-shadow: var(--shadow);
+      display:none;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      max-width: min(92vw, 560px);
+      text-align:center;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav" role="navigation" aria-label="Primary">
+    <div class="nav-inner">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Isita & Rakesh</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#details">Details</a>
+        <a href="#memories">Memories</a>
+        <a href="#rsvp">RSVP</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="wrap">
+    <section class="hero">
+      <div class="hero-card card">
+        <div class="hero-inner">
+          <div>
+            <div class="kicker"><span class="spark">✦</span>Wedding & Memory Book</div>
+            <h1>Isita Karmakar<br/> & Rakesh Seal</h1>
+            <p class="subtitle">
+              We’re getting married — and we’d love to collect your wishes, stories, and photos in one place.
+              Add a memory below and make this page a living scrapbook.
+            </p>
+
+            <div class="pillrow" aria-label="Highlights">
+              <span class="pill">💍 Wedding</span>
+              <span class="pill">📸 Share Photos</span>
+              <span class="pill">💌 Wishes & Notes</span>
+              <span class="pill">🕊️ Keepsake Page</span>
+            </div>
+
+            <div class="cta-row">
+              <a class="btn primary" href="#memories">Share a Memory →</a>
+              <button class="btn" id="copyLinkBtn" type="button">Copy Page Link</button>
+            </div>
+          </div>
+
+          <aside class="side" aria-label="Quick details">
+            <div class="frame" id="photoFrame">
+              <div>
+                <strong>Add your favorite couple photo!</strong><br/>
+                Replace this area by editing the file (search for <code>HERO_IMAGE_URL</code>).
+                <div style="margin-top:10px; font-size:12px; color:rgba(255,255,255,.62)">
+                  Tip: you can keep it blank too — it still looks great.
+                </div>
+              </div>
+            </div>
+
+            <div class="mini">
+              <div class="tile">
+                <div class="label">Date</div>
+                <div class="value" id="weddingDateText">To be announced</div>
+                <small class="muted">Edit in the code</small>
+              </div>
+              <div class="tile">
+                <div class="label">Location</div>
+                <div class="value" id="weddingPlaceText">To be announced</div>
+                <small class="muted">Edit in the code</small>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="details" class="section">
+      <div class="grid">
+        <div class="card">
+          <div class="inner">
+            <h2>Our Story</h2>
+            <div class="story" id="storyText">
+              <div>
+                <strong style="color:var(--text)">Isita</strong> and <strong style="color:var(--text)">Rakesh</strong>
+                are starting a new chapter — with family, friends, laughter, and lots of photos.
+              </div>
+              <div>
+                Use this page to keep the memories together: a funny moment, a heartfelt wish, or a photo you love.
+              </div>
+              <div>
+                <em>You can customize this story text inside the HTML (search for <code>STORY_EDIT</code>).</em>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="inner">
+            <h2>Event Details</h2>
+            <p class="muted" style="margin:10px 0 0; line-height:1.55">
+              Add your ceremony/reception schedule here. (This template works even if you leave it minimal.)
+            </p>
+
+            <div class="timeline" id="timeline">
+              <div class="event">
+                <div class="badge">1</div>
+                <div>
+                  <div class="title">Ceremony</div>
+                  <div class="meta">Time • Venue</div>
+                  <div class="desc">Welcome & blessings.</div>
+                </div>
+              </div>
+              <div class="event">
+                <div class="badge">2</div>
+                <div>
+                  <div class="title">Reception</div>
+                  <div class="meta">Time • Venue</div>
+                  <div class="desc">Dinner, music, and celebration.</div>
+                </div>
+              </div>
+              <div class="event">
+                <div class="badge">3</div>
+                <div>
+                  <div class="title">Memories</div>
+                  <div class="meta">Anytime</div>
+                  <div class="desc">Scroll down and leave a note (and optionally a photo).</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap">
+              <button class="btn" type="button" id="addToCalendarBtn" title="Creates a calendar file (ICS)">Download Calendar Invite</button>
+              <button class="btn" type="button" id="printBtn">Print This Page</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="memories" class="section">
+      <div class="card">
+        <div class="inner">
+          <h2>Share a Memory</h2>
+          <p class="muted" style="margin:10px 0 0; line-height:1.6">
+            Leave a wish, a story, or a photo. Posts are saved on <strong>this device/browser</strong>.
+            If you want everyone to see the same memories, host this page with a small backend later.
+          </p>
+
+          <form class="form" id="memoryForm">
+            <div class="row">
+              <div>
+                <label for="name">Your name</label>
+                <input id="name" name="name" placeholder="e.g., Ananya" required maxlength="60" />
+              </div>
+              <div>
+                <label for="relation">How do you know them? (optional)</label>
+                <input id="relation" name="relation" placeholder="Friend / Cousin / Colleague..." maxlength="60" />
+              </div>
+            </div>
+
+            <div>
+              <label for="message">Your memory / wish</label>
+              <textarea id="message" name="message" placeholder="Write something lovely (or funny)..." required maxlength="1200"></textarea>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="photo">Add a photo (optional)</label>
+                <input id="photo" name="photo" type="file" accept="image/*" />
+              </div>
+              <div>
+                <label for="tags">Tags (optional)</label>
+                <input id="tags" name="tags" placeholder="e.g., college, family, travel" maxlength="80" />
+              </div>
+            </div>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+              <button class="btn primary" type="submit">Post Memory</button>
+              <button class="btn" type="button" id="exportBtn">Export Memories (JSON)</button>
+              <button class="btn" type="button" id="importBtn">Import Memories</button>
+              <input id="importFile" type="file" accept="application/json" style="display:none" />
+              <button class="btn" type="button" id="clearBtn" title="Clears memories from this browser">Clear Local Memories</button>
+            </div>
+          </form>
+
+          <div class="memories-header">
+            <div>
+              <div style="font-weight:750">Memory Wall</div>
+              <div class="muted" id="countText" style="font-size:13px; margin-top:2px">No memories yet — be the first!</div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+              <label class="muted" style="font-size:13px">
+                Search:
+                <input id="searchInput" placeholder="name / tags / text" style="width:min(320px, 72vw); margin-left:8px" />
+              </label>
+              <button class="btn" type="button" id="sortBtn" title="Toggle sort order">Sort: Newest</button>
+            </div>
+          </div>
+
+          <div class="memories" id="memoriesGrid" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rsvp" class="section">
+      <div class="card">
+        <div class="inner">
+          <h2>RSVP</h2>
+          <p class="muted" style="margin:10px 0 0; line-height:1.6">
+            RSVP via email or WhatsApp. (Edit the contact details in the code: search for <code>CONTACT_EDIT</code>.)
+          </p>
+          <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn primary" id="emailRsvp" href="mailto:example@email.com?subject=RSVP%20for%20Isita%20%26%20Rakesh" rel="nofollow">
+              Email RSVP
+            </a>
+            <a class="btn" id="waRsvp" href="#" rel="nofollow">
+              WhatsApp RSVP
+            </a>
+          </div>
+
+          <div class="story" style="margin-top:14px">
+            <div><strong style="color:var(--text)">Gifts:</strong> Your presence is the best gift. ❤️</div>
+            <div><strong style="color:var(--text)">Photos:</strong> Share your best shots in the “Share a Memory” section.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Made with love for Isita Karmakar & Rakesh Seal • <span id="year"></span>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /**************
+     * QUICK EDITS
+     **************/
+    const CONFIG = {
+      couple: "Isita Karmakar & Rakesh Seal",
+      weddingDateDisplay: "To be announced",      // EDIT ME
+      weddingPlaceDisplay: "To be announced",     // EDIT ME
+      // HERO_IMAGE_URL: set to an image URL if you host one (or leave empty)
+      heroImageUrl: "", // e.g. "https://example.com/hero.jpg"  // HERO_IMAGE_URL
+
+      // CONTACT_EDIT
+      rsvpEmail: "example@email.com",
+      whatsappNumberE164: "", // e.g. "919999999999" (country code + number, no +). Leave blank to hide.
+      whatsappMessage: "Hi! I’d like to RSVP for Isita & Rakesh’s wedding."
+    };
+
+    // STORY_EDIT (optional): customize story text by editing HTML above, or set a string here and we’ll replace it.
+    // CONFIG.storyOverride = "Write your own story here...";
+
+    /**************
+     * INIT
+     **************/
+    const $ = (sel) => document.querySelector(sel);
+    const toast = $("#toast");
+
+    $("#year").textContent = new Date().getFullYear();
+    $("#weddingDateText").textContent = CONFIG.weddingDateDisplay;
+    $("#weddingPlaceText").textContent = CONFIG.weddingPlaceDisplay;
+
+    // Optional story override
+    if (CONFIG.storyOverride) {
+      $("#storyText").innerHTML = `<div>${escapeHtml(CONFIG.storyOverride).replaceAll("\n","<br>")}</div>`;
+    }
+
+    // Hero image frame
+    if (CONFIG.heroImageUrl) {
+      $("#photoFrame").innerHTML = `<img alt="Isita and Rakesh" src="${CONFIG.heroImageUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:16px;display:block" />`;
+      $("#photoFrame").style.padding = "0";
+      $("#photoFrame").style.borderStyle = "solid";
+    }
+
+    // RSVP links
+    $("#emailRsvp").href = `mailto:${encodeURIComponent(CONFIG.rsvpEmail)}?subject=${encodeURIComponent("RSVP for Isita & Rakesh")}`;
+    if (CONFIG.whatsappNumberE164) {
+      const waUrl = `https://wa.me/${CONFIG.whatsappNumberE164}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
+      $("#waRsvp").href = waUrl;
+    } else {
+      $("#waRsvp").style.display = "none";
+    }
+
+    // Buttons
+    $("#copyLinkBtn").addEventListener("click", async () => {
+      try{
+        await navigator.clipboard.writeText(location.href);
+        showToast("Link copied!");
+      }catch(e){
+        showToast("Couldn’t copy automatically — you can copy from the address bar.");
+      }
+    });
+
+    $("#printBtn").addEventListener("click", () => window.print());
+
+    $("#addToCalendarBtn").addEventListener("click", () => {
+      // Minimal ICS generator (works after you set an actual date/time)
+      const now = new Date();
+      const dtStamp = toIcsDate(now);
+
+      // If you set a real date/time, update these:
+      // Example: new Date("2026-01-15T18:30:00+05:30")
+      const start = null;
+      const end = null;
+
+      const summary = `${CONFIG.couple} — Wedding`;
+      const location = CONFIG.weddingPlaceDisplay;
+
+      const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//IsitaRakesh//Wedding//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:${cryptoRandomId()}@isita-rakesh
+DTSTAMP:${dtStamp}
+SUMMARY:${escapeIcs(summary)}
+LOCATION:${escapeIcs(location)}
+DESCRIPTION:${escapeIcs("Wedding celebration for " + CONFIG.couple)}
+${start ? "DTSTART:" + toIcsDate(start) : "DTSTART;VALUE=DATE:" + toIcsDate(new Date()).slice(0,8)}
+${end ? "DTEND:" + toIcsDate(end) : ""}
+END:VEVENT
+END:VCALENDAR`;
+
+      downloadFile("isita-rakesh-wedding.ics", ics, "text/calendar");
+      showToast("Calendar file downloaded. Edit date/time in code for accuracy.");
+    });
+
+    /**************
+     * MEMORIES (localStorage)
+     **************/
+    const STORAGE_KEY = "isita_rakesh_memories_v1";
+    let sortNewest = true;
+    let memories = loadMemories();
+
+    const memoriesGrid = $("#memoriesGrid");
+    const countText = $("#countText");
+    const searchInput = $("#searchInput");
+
+    function loadMemories(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){ return []; }
+    }
+    function saveMemories(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(memories));
+    }
+
+    function render(){
+      const q = (searchInput.value || "").trim().toLowerCase();
+      let list = [...memories];
+
+      list.sort((a,b) => sortNewest ? (b.createdAt - a.createdAt) : (a.createdAt - b.createdAt));
+
+      if (q){
+        list = list.filter(m => {
+          const blob = `${m.name} ${m.relation||""} ${m.message} ${(m.tags||[]).join(" ")}`.toLowerCase();
+          return blob.includes(q);
+        });
+      }
+
+      countText.textContent =
+        list.length === 0
+          ? "No memories yet — be the first!"
+          : `${list.length} ${list.length === 1 ? "memory" : "memories"} on this device`;
+
+      memoriesGrid.innerHTML = list.map(memCardHtml).join("");
+
+      // Bind delete buttons
+      document.querySelectorAll("[data-del]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-del");
+          memories = memories.filter(m => m.id !== id);
+          saveMemories();
+          render();
+          showToast("Memory removed (from this browser).");
+        });
+      });
+    }
+
+    function memCardHtml(m){
+      const date = new Date(m.createdAt);
+      const when = date.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+      const tags = (m.tags||[]).filter(Boolean).slice(0,10);
+      return `
+        <article class="mem">
+          <div class="pic">
+            ${m.photoDataUrl ? `<img alt="Memory photo" src="${m.photoDataUrl}">` : `<div>📷 Optional photo</div>`}
+          </div>
+          <div class="body">
+            <div class="who">${escapeHtml(m.name)}${m.relation ? ` <span class="muted" style="font-weight:600">· ${escapeHtml(m.relation)}</span>` : ""}</div>
+            <div class="when">${escapeHtml(when)}</div>
+            <div class="text">${escapeHtml(m.message)}</div>
+            ${tags.length ? `<div class="tags">${tags.map(t=>`<span class="chip">#${escapeHtml(t)}</span>`).join("")}</div>` : ""}
+            <div style="margin-top:10px; display:flex; justify-content:flex-end">
+              <button class="btn" type="button" data-del="${m.id}" style="padding:7px 10px; font-size:13px;">Delete</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    $("#memoryForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = $("#name").value.trim();
+      const relation = $("#relation").value.trim();
+      const message = $("#message").value.trim();
+      const tagsRaw = $("#tags").value.trim();
+      const photoFile = $("#photo").files && $("#photo").files[0];
+
+      if (!name || !message){
+        showToast("Please add your name and a message.");
+        return;
+      }
+
+      let photoDataUrl = "";
+      if (photoFile){
+        // Keep it lightweight: limit to ~1.5MB after base64 or it may exceed storage limits.
+        // We’ll still try; if storage fails, we’ll warn.
+        photoDataUrl = await fileToDataUrl(photoFile);
+      }
+
+      const mem = {
+        id: cryptoRandomId(),
+        createdAt: Date.now(),
+        name,
+        relation: relation || "",
+        message,
+        tags: normalizeTags(tagsRaw),
+        photoDataUrl
+      };
+
+      memories.push(mem);
+
+      try{
+        saveMemories();
+      }catch(err){
+        // If storage exceeded, drop photo and retry
+        mem.photoDataUrl = "";
+        try{
+          saveMemories();
+          showToast("Saved text, but photo was too large for local storage.");
+        }catch(e2){
+          memories.pop();
+          showToast("Couldn’t save memory (storage full). Try exporting/clearing memories.");
+          return;
+        }
+      }
+
+      e.target.reset();
+      render();
+      showToast("Memory posted! ❤️");
+      // jump to wall
+      setTimeout(() => $("#memoriesGrid").scrollIntoView({behavior:"smooth", block:"start"}), 250);
+    });
+
+    $("#sortBtn").addEventListener("click", () => {
+      sortNewest = !sortNewest;
+      $("#sortBtn").textContent = "Sort: " + (sortNewest ? "Newest" : "Oldest");
+      render();
+    });
+
+    $("#clearBtn").addEventListener("click", () => {
+      if (!confirm("Clear all local memories from this browser?")) return;
+      memories = [];
+      saveMemories();
+      render();
+      showToast("Cleared local memories.");
+    });
+
+    $("#exportBtn").addEventListener("click", () => {
+      const blob = JSON.stringify({ exportedAt: new Date().toISOString(), memories }, null, 2);
+      downloadFile("isita-rakesh-memories.json", blob, "application/json");
+      showToast("Exported memories as JSON.");
+    });
+
+    $("#importBtn").addEventListener("click", () => $("#importFile").click());
+    $("#importFile").addEventListener("change", async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      try{
+        const text = await file.text();
+        const data = JSON.parse(text);
+        const incoming = Array.isArray(data) ? data : (data.memories || []);
+        const cleaned = incoming
+          .filter(x => x && x.name && x.message && x.createdAt)
+          .map(x => ({
+            id: x.id || cryptoRandomId(),
+            createdAt: Number(x.createdAt) || Date.now(),
+            name: String(x.name).slice(0,60),
+            relation: String(x.relation || "").slice(0,60),
+            message: String(x.message).slice(0,1200),
+            tags: Array.isArray(x.tags) ? x.tags.map(t=>String(t).slice(0,24)) : [],
+            photoDataUrl: typeof x.photoDataUrl === "string" ? x.photoDataUrl : ""
+          }));
+
+        // Merge by id
+        const map = new Map(memories.map(m => [m.id, m]));
+        cleaned.forEach(m => map.set(m.id, m));
+        memories = Array.from(map.values());
+        saveMemories();
+        render();
+        showToast("Imported memories.");
+      }catch(err){
+        showToast("Import failed — please choose a valid JSON export.");
+      }finally{
+        e.target.value = "";
+      }
+    });
+
+    searchInput.addEventListener("input", () => render());
+
+    // initial paint
+    render();
+
+    /**************
+     * HELPERS
+     **************/
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.style.display = "block";
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=> toast.style.display="none", 2600);
+    }
+
+    function normalizeTags(s){
+      if (!s) return [];
+      return s
+        .split(",")
+        .map(x => x.trim())
+        .filter(Boolean)
+        .map(x => x.replace(/^#/, ""))
+        .map(x => x.slice(0,24));
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function fileToDataUrl(file){
+      return new Promise((resolve,reject)=>{
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function downloadFile(filename, content, mime){
+      const blob = new Blob([content], {type: mime});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 6000);
+    }
+
+    function cryptoRandomId(){
+      // short id
+      if (window.crypto && crypto.getRandomValues){
+        const a = new Uint32Array(2);
+        crypto.getRandomValues(a);
+        return a[0].toString(16) + a[1].toString(16);
+      }
+      return String(Math.random()).slice(2) + String(Date.now());
+    }
+
+    function toIcsDate(d){
+      // UTC format: YYYYMMDDTHHMMSSZ
+      const pad = (n)=> String(n).padStart(2,"0");
+      const yyyy = d.getUTCFullYear();
+      const mm = pad(d.getUTCMonth()+1);
+      const dd = pad(d.getUTCDate());
+      const hh = pad(d.getUTCHours());
+      const mi = pad(d.getUTCMinutes());
+      const ss = pad(d.getUTCSeconds());
+      return `${yyyy}${mm}${dd}T${hh}${mi}${ss}Z`;
+    }
+
+    function escapeIcs(s){
+      return String(s || "")
+        .replaceAll("\\", "\\\\")
+        .replaceAll("\n","\\n")
+        .replaceAll(",","\\,")
+        .replaceAll(";","\\;");
+    }
+  </script>
+</body>
+</html>
