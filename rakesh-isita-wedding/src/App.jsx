@@ -1,5 +1,10 @@
-import React, { useEffect, useState } from "react";
+
 import "./App.css";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
 
 /* ─────────────────────────
    CONTENT CONFIG (all strings)
@@ -35,7 +40,7 @@ const SECTION_COPY = {
     subtitle: "A journey from strangers to soulmates.",
     p1: "It all started with a simple hello that turned into endless conversations, shared dreams, and a bond that grew stronger with every passing day. From long walks and late-night talks to inside jokes and quiet moments, we found home in each other.",
     p2: "Now, as we step into this new chapter, we feel incredibly grateful to have you with us to witness and bless our union.",
-    quote: "Two hearts, one journey, infinite love",
+    quote: "We met as strangers, and somehow became home.",
   },
   gallery: {
     title: "Our Gallery",
@@ -56,33 +61,33 @@ const SECTION_COPY = {
 
 const GALLERY_IMAGES = [
   {
-    src: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg",
+    src: "/im1.JPG",
     alt: "Couple walking together",
   },
   {
-    src: "https://images.pexels.com/photos/2959192/pexels-photo-2959192.jpeg",
+    src: "/im2.JPG",
     alt: "Couple holding hands",
   },
   {
-    src: "https://images.pexels.com/photos/1444442/pexels-photo-1444442.jpeg",
+    src: "/im3.JPG",
     alt: "Couple smiling together",
   },
   {
-    src: "https://images.pexels.com/photos/853407/pexels-photo-853407.jpeg",
+    src: "/im4.JPG",
     alt: "Ring and hands close-up",
   },
   {
-    src: "https://images.pexels.com/photos/2959196/pexels-photo-2959196.jpeg",
+    src: "/im5.JPG",
     alt: "Couple in a field",
   },
   {
-    src: "https://images.pexels.com/photos/1572485/pexels-photo-1572485.jpeg",
+    src: "/im6.JPG",
     alt: "Wedding bouquet",
   },
 ];
 
 const PREWEDDING_VIDEO_URL =
-  "https://www.youtube.com/embed/hopMHZrO7Mw?si=YAuK87Yz7DA_UYJ9&amp;controls=0"; // TODO: replace with real video
+  "https://www.youtube.com/embed/oeUHQm5J-RY?si=scPxWb_v_h9uGSak"; // TODO: replace with real video
 
 const EVENT_LOCATIONS = [
   {
@@ -111,7 +116,7 @@ const EVENT_LOCATIONS = [
     date: "December 4, 2026",
     time: "5:00 PM",
     venue: "Karmakar Bhavan",
-     address: "Goalpara, Samudragarh, West Bengal",
+    address: "Goalpara, Samudragarh, West Bengal",
     mapLink: "https://maps.app.goo.gl/yEeREGZsi4iKaPbN7",
   },
 ];
@@ -321,6 +326,102 @@ function Story() {
    ───────────────────────── */
 
 function Gallery() {
+  const [openIdx, setOpenIdx] = useState(null);
+  const isOpen = openIdx !== null;
+
+  const dialogRef = useRef(null);
+  const lastActiveElRef = useRef(null);
+
+  const active = useMemo(() => {
+    if (!isOpen) return null;
+    return GALLERY_IMAGES[openIdx];
+  }, [isOpen, openIdx]);
+
+  const close = useCallback(() => setOpenIdx(null), []);
+
+  const open = useCallback(async (idx) => {
+    // Best-effort pre-decode so fullscreen doesn't show a soft/“grainy” first frame
+    const item = GALLERY_IMAGES[idx];
+    try {
+      if (item?.src) {
+        const pre = new Image();
+        pre.src = item.src;
+        if (pre.decode) await pre.decode();
+      }
+    } catch {
+      // ignore
+    }
+    setOpenIdx(idx);
+  }, []);
+
+  // Keyboard controls (desktop/tablet)
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") setOpenIdx((i) => clamp(i + 1, 0, GALLERY_IMAGES.length - 1));
+      if (e.key === "ArrowLeft") setOpenIdx((i) => clamp(i - 1, 0, GALLERY_IMAGES.length - 1));
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen, close]);
+
+  // Lock background scroll when modal open
+  useEffect(() => {
+    if (!isOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [isOpen]);
+
+  // Focus management (basic)
+  useEffect(() => {
+    if (!isOpen) return;
+    lastActiveElRef.current = document.activeElement;
+
+    // focus close button
+    const closeBtn = dialogRef.current?.querySelector("[data-close]");
+    closeBtn?.focus();
+
+    return () => {
+      const el = lastActiveElRef.current;
+      if (el && typeof el.focus === "function") el.focus();
+    };
+  }, [isOpen]);
+
+  const onBackdropMouseDown = (e) => {
+    // close only if the backdrop itself is clicked
+    if (e.target === e.currentTarget) close();
+  };
+
+  const stop = (e) => {
+    // Prevent clicks/taps inside modal from hitting backdrop
+    e.stopPropagation();
+  };
+
+  const safeClose = (e) => {
+    // Prevent mobile tap from leaking to nav buttons (and also prevent backdrop)
+    e.preventDefault();
+    e.stopPropagation();
+    close();
+  };
+
+  const goPrev = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenIdx((i) => clamp(i - 1, 0, GALLERY_IMAGES.length - 1));
+  };
+
+  const goNext = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenIdx((i) => clamp(i + 1, 0, GALLERY_IMAGES.length - 1));
+  };
+
   return (
     <section id="gallery" className="gallery">
       <div className="section-inner">
@@ -330,14 +431,94 @@ function Gallery() {
         <div className="gallery-grid">
           {GALLERY_IMAGES.map((img, idx) => (
             <figure key={idx} className="gallery-item">
-              <img src={img.src} alt={img.alt} loading="lazy" />
+              <button
+                type="button"
+                className="gallery-open"
+                onClick={() => open(idx)}
+                aria-label={`Open image ${idx + 1}: ${img.alt}`}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                />
+              </button>
             </figure>
           ))}
         </div>
       </div>
+
+      {isOpen && active && (
+        <div
+          className="gallery-modal-backdrop"
+          role="presentation"
+          onMouseDown={onBackdropMouseDown}
+        >
+          <div
+            className="gallery-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label={active.alt || "Image viewer"}
+            ref={dialogRef}
+            onMouseDown={stop}
+            onClick={stop}
+          >
+            <button
+              type="button"
+              className="gallery-modal-close"
+              data-close
+              aria-label="Close"
+              onPointerDown={(e) => {
+                // pointerdown is key on mobile to prevent “tap-through”
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              onClick={safeClose}
+            >
+              ×
+            </button>
+
+            <button
+              type="button"
+              className="gallery-modal-nav gallery-modal-prev"
+              aria-label="Previous image"
+              disabled={openIdx === 0}
+              onPointerDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              onClick={goPrev}
+            >
+              ‹
+            </button>
+
+            <div className="gallery-modal-media">
+              <img src={active.src} alt={active.alt} decoding="sync" draggable={false} />
+            </div>
+
+            <button
+              type="button"
+              className="gallery-modal-nav gallery-modal-next"
+              aria-label="Next image"
+              disabled={openIdx === GALLERY_IMAGES.length - 1}
+              onPointerDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+              onClick={goNext}
+            >
+              ›
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+
+
 
 /* ─────────────────────────
    VIDEO

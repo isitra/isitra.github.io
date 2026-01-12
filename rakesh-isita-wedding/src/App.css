@@ -111,15 +111,14 @@ body {
   min-height: 60vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;      /* ⬅️ was flex-end */
+  justify-content: flex-start;
+  /* ⬅️ was flex-end */
   padding: 50px 5vw 40px;
   overflow: hidden;
-  background: radial-gradient(
-    circle at top,
-    #fff8fb,
-    #f4f4ff 45%,
-    #fdfdfd
-  );
+  background: radial-gradient(circle at top,
+      #fff8fb,
+      #f4f4ff 45%,
+      #fdfdfd);
 }
 
 
@@ -127,7 +126,7 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background-image: url("/hero.jpg");
+  background-image: url("/image.jpg");
   /* your couple photo */
   background-size: cover;
   background-position: right center;
@@ -157,7 +156,8 @@ body {
 /* On mobile we can still allow some height so it doesn't feel cramped */
 @media (max-width: 900px) {
   .hero {
-    justify-content: center;     /* card centred on mobile/tablet */
+    justify-content: center;
+    /* card centred on mobile/tablet */
     padding: 70px 20px 40px;
     min-height: auto;
   }
@@ -239,7 +239,8 @@ body {
 
 .hero-buttons {
   display: flex;
-  justify-content: flex-start;   /* was center */
+  justify-content: flex-start;
+  /* was center */
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -395,6 +396,9 @@ body {
 
 /* GALLERY */
 
+/* =======================
+   Gallery
+======================= */
 .gallery {
   background: var(--bg);
 }
@@ -414,12 +418,148 @@ body {
   background: #fff;
 }
 
+/* Make the whole tile clickable without changing your look */
+.gallery-open {
+  all: unset;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
 .gallery-item img {
   width: 100%;
   height: 220px;
   object-fit: cover;
   display: block;
+
+  /* optional: can reduce some GPU scaling artifacts */
+  image-rendering: auto;
+  transform: translateZ(0);
 }
+
+/* Responsive grid */
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =======================
+   Fullscreen Modal
+======================= */
+.gallery-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+/* IMPORTANT: not a grid => prevents full-height nav hit areas */
+.gallery-modal {
+  position: relative;
+  width: min(1200px, 96vw);
+  height: min(820px, 92vh);
+  background: #0b0b0b;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.45);
+}
+
+.gallery-modal-media {
+  height: 100%;
+  width: 100%;
+  padding: 14px;
+  display: grid;
+  place-items: center;
+}
+
+.gallery-modal-media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Close button */
+.gallery-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 28px;
+  line-height: 44px;
+  cursor: pointer;
+  z-index: 50;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Nav buttons (no overlap with close) */
+.gallery-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: 44px;
+  line-height: 56px;
+  cursor: pointer;
+  z-index: 40;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-modal-prev {
+  left: 10px;
+}
+
+.gallery-modal-next {
+  right: 10px;
+}
+
+.gallery-modal-nav:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+/* Modal mobile tweaks */
+@media (max-width: 560px) {
+  .gallery-modal {
+    border-radius: 14px;
+  }
+
+  .gallery-modal-close {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+
+  .gallery-modal-nav {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 40px;
+    border-radius: 14px;
+  }
+}
+
 
 /* VIDEO SECTION */
 
